@@ -9,7 +9,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing, cross_validation
 
 #For Stock Data
-from iexfinance import get_historical_data
+#from iexfinance import get_historical_data
+import pandas_datareader.data as web
 
 def getStocks(n):
     #Navigating to the Yahoo stock screener
@@ -62,11 +63,12 @@ def sendMessage(text):
 def predictData(stock, days):
     print(stock)
 
-    start = datetime(2017, 1, 1)
+    start = datetime.today()-timedelta(days=round(365.25*3.5,0))
     end = datetime.now()
 
     #Outputting the Historical data into a .csv for later use
-    df = get_historical_data(stock, start=start, end=end, output_format='pandas')
+    #df = get_historical_data(stock, start=start, end=end, output_format='pandas')
+    df = web.DataReader(stock,'yahoo', start, end)
     if os.path.exists('./Exports'):
         csv_name = ('Exports/' + stock + '_Export.csv')
     else:
