@@ -15,7 +15,7 @@ import pandas_datareader.data as web
 def getStocks(n):
     #Navigating to the Yahoo stock screener
     driver = webdriver.Chrome(
-        'PATH TO CHROME DRIVER')
+        '/usr/local/bin/chromedriver')
     url = "https://finance.yahoo.com/screener/predefined/aggressive_small_caps?offset=0&count=202"
     driver.get(url)
 
@@ -24,7 +24,7 @@ def getStocks(n):
     n += 1
     for i in range(1, n):
         ticker = driver.find_element_by_xpath(
-            '//*[@id = "scr-res-table"]/div[2]/table/tbody/tr[' + str(i) + ']/td[1]/a')
+            '//*[@id = "scr-res-table"]/div[1]/table/tbody/tr[' + str(i) + ']/td[1]/a')
         stock_list.append(ticker.text)
     driver.quit()
     
